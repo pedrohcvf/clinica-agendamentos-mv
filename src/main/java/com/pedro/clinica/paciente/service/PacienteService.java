@@ -45,4 +45,10 @@ public class PacienteService {
         return pacienteMapper.toDto(paciente);
     }
 
+    // BUSCAR ENTIDADE PACIENTE POR ID
+    public Paciente findEntityById(UUID id){
+        return pacienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado"));
+    }
+
 }

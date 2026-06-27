@@ -47,4 +47,10 @@ public class ProfissionalService {
                 .orElseThrow(() -> new ResourceNotFoundException("Profissional não encontrado"));
         return profissionalMapper.toDto(profissional);
     }
+
+    // BUSCAR ENTIDADE PROFISSIONAL POR ID
+    public Profissional findEntityById(UUID id){
+        return profissionalRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Profissional não encontrado"));
+    }
 }
