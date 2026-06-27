@@ -23,21 +23,18 @@ public class PacienteService {
 
     // CADASTRAR PACIENTE
     public PacienteResponseDto addPaciente(PacienteRequestDto dto){
-        try {
             Paciente paciente = pacienteMapper.toEntity(dto);
-            Paciente saved = pacienteRepository.save(paciente);
-            return pacienteMapper.toDto(saved);
-        } catch (DataIntegrityViolationException e) {
-            throw new ConflictException("CPF Já cadastrado.");
-        }
-
+            if(pacienteRepository.existsByCpf(paciente.getCpf())){
+                throw new ConflictException("CPF Já cadastrado");
+            }
+            return pacienteMapper.toDto(pacienteRepository.save(paciente));
     }
 
     // LISTAR PACIENTES
     public List<PacienteResponseDto> findAll(){
         return pacienteRepository.findAll()
                 .stream()
-                .map(paciente -> pacienteMapper.toDto(paciente))
+                .map(pacienteMapper::toDto)
                 .toList();
     }
 
