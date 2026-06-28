@@ -38,6 +38,7 @@ public class GlobalHandlerException {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponseDto);
     }
 
+    // VALIDAÇÃO CASO NÃO EXISTA BODY NO CANCELAMENTO DO AGENDAMENTO
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponseDto> handleHttpMessageNotReadable(HttpMessageNotReadableException exception){
         ErrorResponseDto error = new ErrorResponseDto(400, "Body da requisição ausente ou inválido", LocalDateTime.now());
